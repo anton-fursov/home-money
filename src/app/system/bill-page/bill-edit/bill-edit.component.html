@@ -1,0 +1,17 @@
+
+  <div class="col col-xs-12 col-sm-12 col-md-6 col-xl-5 stats-col">
+
+    <div class=" card card-block">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="control-label" for="edit">Изменить значение счёта</label>
+          <input class="form-control" type="number" id="edit" formControlName="fieldEdit">
+          <span *ngIf="form.invalid && form.touched" class="form-help-text">Минимальное значение: 100</span>
+        </div>
+        <button class="btn btn-primary" [disabled]="form.invalid">Отправить</button>
+      </form>
+
+    </div>
+
+  </div>
+

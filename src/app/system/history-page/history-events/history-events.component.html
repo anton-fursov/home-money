@@ -1,0 +1,64 @@
+<section class="section">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bordered">
+          <div class="header-block">
+            <h3 class="title">Список событий</h3>
+          </div>
+          <div class="form-inline pull-right m-r-2">
+            <div class="form-group">
+              <input type="text"
+                     class="form-control"
+                     [placeholder]="searchPlaceholder"
+                     [(ngModel)]="searchValue"
+
+              >
+            </div>
+            <div class="btn-group" system-dropdown>
+              <button type="button" class="btn btn-secondary dropdown-toggle">
+                Параметр
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="changeCriteria('amount')">Сумма</a>
+                <a class="dropdown-item" (click)="changeCriteria('date')">Дата</a>
+                <a class="dropdown-item" (click)="changeCriteria('category')">Категория</a>
+                <a class="dropdown-item" (click)="changeCriteria('typeName')">Тип</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-block">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Сумма</th>
+              <th>Дата</th>
+              <th>Категория</th>
+              <th>Тип</th>
+              <th class="text-lg-center">Действие</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="events">
+            <tr *ngFor="let i of events | filterEvents: searchValue: searchField; index as a">
+              <th scope="row">{{a+1}}</th>
+              <td>{{i.amount | number: '1.2'}}</td>
+              <td>{{i.date.slice(0, 10)}}</td>
+              <td>{{i.catName}}</td>
+              <td>
+                <span class="label label-danger" *ngIf="i.typeName === 'outcome'">Расход</span>
+                <span class="label label-success" *ngIf="i.typeName === 'income'">Доход</span>
+              </td>
+              <td class="text-lg-center">
+                <a routerLink="{{i._id}}" class="btn btn-primary-outline">Открыть</a>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

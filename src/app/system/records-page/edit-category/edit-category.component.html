@@ -1,0 +1,39 @@
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header bordered">
+      <div class="header-block">
+        <h3 class="title">Редактор категорий</h3>
+      </div>
+    </div>
+    <div class="card-block">
+      <form [formGroup]="form" (ngSubmit)="editCategory()">
+        <div class="form-group" >
+          <label class="control-label" for="category">Выберите категорию</label>
+          <select class="form-control"
+                  id="category"
+                  [(ngModel)]="value"
+                  [ngModelOptions]="{standalone: true}"
+                  (change)="setCurrentCategory()"
+          >
+            <option *ngFor="let i of categories" [value]="i._id">{{i.name}}</option>
+
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="amount">Изменить название</label>
+          <input type="text" class="form-control" formControlName="name" [ngModel]="currentCategory.name" >
+          <span *ngIf="form.get('name').invalid && form.touched" class="form-help-text">Имя категории не может быть пустым</span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="amount">Изменить лимит</label>
+          <input type="number" value="0" id="amount" class="form-control" formControlName="limit" [ngModel]="currentCategory.limit" >
+          <div *ngIf="form.get('limit').invalid && form.get('limit').touched">
+            <span *ngIf="form.get('limit')['errors']['required']" class="form-help-text">Поле не может быть пустым</span>
+            <span *ngIf="form.get('limit')['errors']['min']" class="form-help-text">Минимальное значение поля: 1</span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Сохранить</button>
+      </form>
+    </div>
+  </div>
+</div>
